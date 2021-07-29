@@ -17,12 +17,11 @@ int	main(int argc, char **argv)
 		{
 			if (kill(pid_to_send, SIGUSR1) != 0)
 				ft_error("Error al mandar la señal");
-			usleep(64);
+			usleep(320);
 		}
-		usleep(128);
 		if (kill(pid_to_send, SIGUSR2) != 0)
 			ft_error("Error al mandar la señal");
-		usleep(128);
+		usleep(320);
 		i++;
 	}
 	if (kill(pid_to_send, SIGUSR2) != 0)
