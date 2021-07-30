@@ -4,5 +4,4 @@
 # include "./libft/get_next_line.h"
 # include <signal.h>
 # include <sys/types.h>
-
 #endif

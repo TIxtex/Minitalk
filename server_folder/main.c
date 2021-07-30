@@ -1,38 +1,43 @@
 #include "../minitalk.h"
 
-static void	ft_handler_sa(int sig)
+static void	ft_handler_normal(int sig)
 {
 	static unsigned int	count = 0;
+	static char			character = 0;
 
 	if (30 == sig)
-		count++;
+		((character) |= (1 << (count)));
 	else if (31 == sig)
+		((character) &= ~(1 << (count)));
+	if (8 == ++count)
 	{
-		if (0 == count)
-			write(STDOUT_FILENO, "\n", 1);
-		else
-		{
-			write(STDOUT_FILENO, &count, sizeof(char));
-			count = 0;
-		}
+		ft_putchar_fd(character, STDOUT_FILENO);
+		count = 0;
 	}
+}
+
+static void	ft_print_pid(void)
+{
+	pid_t	pidserver;
+
+	pidserver = getpid();
+	ft_putnbr_fd(pidserver, STDOUT_FILENO);
+	ft_putendl_fd(" <-SERVER_PID", STDOUT_FILENO);
+	ft_putendl_fd("", STDOUT_FILENO);
 }
 
 int	main(void)
 {
-	pid_t				pidserver;
-	struct sigaction	sa;
+	struct sigaction	normal;
 
-	sa.sa_handler = &ft_handler_sa;
-	sa.sa_flags = SA_ONSTACK;
-	pidserver = getpid();
-	ft_putnbr_fd(pidserver, STDOUT_FILENO);
-	write(STDOUT_FILENO, "\n", 1);
-	if (sigaction(SIGUSR1, &sa, NULL) != 0)
+	normal.sa_handler = &ft_handler_normal;
+	normal.sa_flags = SA_ONSTACK;
+	if (sigaction(SIGUSR1, &normal, NULL) != 0)
 		ft_error("Error al asignar accion");
-	if (sigaction(SIGUSR2, &sa, NULL) != 0)
+	if (sigaction(SIGUSR2, &normal, NULL) != 0)
 		ft_error("Error al asignar accion");
+	ft_print_pid();
 	while (1)
 		sleep(0);
-	return (0);
+	return (1);
 }
