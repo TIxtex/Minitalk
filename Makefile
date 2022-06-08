@@ -1,33 +1,24 @@
 NAME_CLIENT = client
 NAME_SERVER = server
-NAME = \
-$(NAME_CLIENT) \
-$(NAME_SERVER)
-CC = gcc
+NAME = $(NAME_CLIENT) $(NAME_SERVER)
+CC = clang -std=c11
 CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = libft/libft.a
 INCLUDE = \
-minitalk.h \
-libft/libft.h
+minitalk.h libft/libft.h
 
-SOURCES_CLIENT = \
-client_folder/main.c
-SOURCES_SERVER = \
-server_folder/main.c
-SOURCES = \
-$(SOURCES_CLIENT) \
-$(SOURCES_SERVER)
+SOURCES_CLIENT = client_folder/main.c
+SOURCES_SERVER = server_folder/main.c
+SOURCES = $(SOURCES_CLIENT) $(SOURCES_SERVER)
 
 OBJECTS_CLIENT = $(SOURCES_CLIENT:.c=.o)
 OBJECTS_SERVER = $(SOURCES_SERVER:.c=.o)
-OBJECTS = \
-$(OBJECTS_CLIENT) \
-$(OBJECTS_SERVER)
+OBJECTS = $(OBJECTS_CLIENT) $(OBJECTS_SERVER)
 
 .PHONY: all clean fclean f re library
 
-$(NAME): $(OBJECTS) $(INCLUDE) $(LIBFT)
+$(NAME): $(OBJECTS) $(LIBFT) $(INCLUDE)
 	$(CC) $(CFLAGS) $(OBJECTS_CLIENT) $(LIBFT) -o $(NAME_CLIENT)
 	$(CC) $(CFLAGS) $(OBJECTS_SERVER) $(LIBFT) -o $(NAME_SERVER)
 	
