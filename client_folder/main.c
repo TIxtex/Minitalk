@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 {
 	if (3 != argc)
 		ft_puterror("Introduce el PID seguido de una string como argumentos");
-	ft_send_str((pid_t)ft_atoi(argv[1]), argv[2]);
+	while (TRUE)
+		ft_send_str((pid_t)ft_atoi(argv[1]), argv[2]);
 	return (42);
 }
