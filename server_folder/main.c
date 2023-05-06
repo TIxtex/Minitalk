@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: uliherre <uliherre@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/06 13:08:53 by uliherre          #+#    #+#             */
+/*   Updated: 2023/05/06 14:35:55 by uliherre         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 /**	SERVER	**/
+
 #include "../minitalk.h"
 
-static int ft_check_character(char character, siginfo_t *info)
+static int	ft_check_character(char character, siginfo_t *info)
 {
-
 	if ('\1' == character)
 	{
 		ft_putnbr_fd((int) info->si_pid, STDOUT_FILENO);
@@ -12,8 +24,8 @@ static int ft_check_character(char character, siginfo_t *info)
 	else if ('\0' == character)
 	{
 		if (ZERO != kill(info->si_pid, SIGUSR2))
-				ft_puterror("send SIGUSR2");
-		ft_putendl_fd("\n–––\nEnd of Message.", STDOUT_FILENO);
+			ft_puterror("send SIGUSR2");
+		ft_putendl_fd("\n–––\nEnd of Message.\n", STDOUT_FILENO);
 		return (ZERO);
 	}
 	return (TRUE);
@@ -41,7 +53,7 @@ static void	ft_handler_normal(int sig, siginfo_t *info, void *var)
 		ft_puterror("send SIGUSR1");
 }
 
-static void ft_normal(int sig)
+static void	ft_normal(int sig)
 {
 	(void) sig;
 	ft_puterror("catch normal SIGUSR1");

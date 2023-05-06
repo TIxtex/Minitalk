@@ -6,7 +6,7 @@
 /*   By: uliherre <uliherre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/11 18:03:01 by uherrero          #+#    #+#             */
-/*   Updated: 2022/07/17 21:54:22 by uliherre         ###   ########.fr       */
+/*   Updated: 2023/05/06 13:09:47 by uliherre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void	*ft_calloc(size_t count, size_t size)
 	}
 	return ((void *) new);
 }
-
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
